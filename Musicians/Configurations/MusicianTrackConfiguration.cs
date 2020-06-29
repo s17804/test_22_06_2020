@@ -11,10 +11,12 @@ namespace Musicians.Configurations
             builder.HasKey(track => track.IdMusicianTrack);
 
             builder.HasOne(musicTrack => musicTrack.Musician)
-                .WithMany(musician => musician.MusicianTracks);
+                .WithMany(musician => musician.MusicianTracks)
+                .HasForeignKey("IdMusician");
             
             builder.HasOne(musicTrack => musicTrack.Track)
-                .WithMany(track =>  track.MusicianTracks);
+                .WithMany(track =>  track.MusicianTracks)
+                .HasForeignKey("IdTrack");
         }
     }
 }

@@ -43,14 +43,14 @@ namespace Musicians.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AlbumName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MusicLabelIdMusicLabel = table.Column<int>(type: "int", nullable: true)
+                    IdMusicLabel = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Albums", x => x.IdAlbum);
                     table.ForeignKey(
-                        name: "FK_Albums_MusicLabels_MusicLabelIdMusicLabel",
-                        column: x => x.MusicLabelIdMusicLabel,
+                        name: "FK_Albums_MusicLabels_IdMusicLabel",
+                        column: x => x.IdMusicLabel,
                         principalTable: "MusicLabels",
                         principalColumn: "IdMusicLabel",
                         onDelete: ReferentialAction.Restrict);
@@ -64,14 +64,14 @@ namespace Musicians.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrackName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Duration = table.Column<float>(type: "real", nullable: false),
-                    AlbumIdAlbum = table.Column<int>(type: "int", nullable: true)
+                    IdMusicAlbum = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tracks", x => x.IdTrack);
                     table.ForeignKey(
-                        name: "FK_Tracks_Albums_AlbumIdAlbum",
-                        column: x => x.AlbumIdAlbum,
+                        name: "FK_Tracks_Albums_IdMusicAlbum",
+                        column: x => x.IdMusicAlbum,
                         principalTable: "Albums",
                         principalColumn: "IdAlbum",
                         onDelete: ReferentialAction.Restrict);
@@ -83,45 +83,45 @@ namespace Musicians.Migrations
                 {
                     IdMusicianTrack = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MusicianIdMusician = table.Column<int>(type: "int", nullable: true),
-                    TrackIdTrack = table.Column<int>(type: "int", nullable: true)
+                    IdMusician = table.Column<int>(type: "int", nullable: true),
+                    IdTrack = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MusicianTracks", x => x.IdMusicianTrack);
                     table.ForeignKey(
-                        name: "FK_MusicianTracks_Musicians_MusicianIdMusician",
-                        column: x => x.MusicianIdMusician,
+                        name: "FK_MusicianTracks_Musicians_IdMusician",
+                        column: x => x.IdMusician,
                         principalTable: "Musicians",
                         principalColumn: "IdMusician",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MusicianTracks_Tracks_TrackIdTrack",
-                        column: x => x.TrackIdTrack,
+                        name: "FK_MusicianTracks_Tracks_IdTrack",
+                        column: x => x.IdTrack,
                         principalTable: "Tracks",
                         principalColumn: "IdTrack",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Albums_MusicLabelIdMusicLabel",
+                name: "IX_Albums_IdMusicLabel",
                 table: "Albums",
-                column: "MusicLabelIdMusicLabel");
+                column: "IdMusicLabel");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MusicianTracks_MusicianIdMusician",
+                name: "IX_MusicianTracks_IdMusician",
                 table: "MusicianTracks",
-                column: "MusicianIdMusician");
+                column: "IdMusician");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MusicianTracks_TrackIdTrack",
+                name: "IX_MusicianTracks_IdTrack",
                 table: "MusicianTracks",
-                column: "TrackIdTrack");
+                column: "IdTrack");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tracks_AlbumIdAlbum",
+                name: "IX_Tracks_IdMusicAlbum",
                 table: "Tracks",
-                column: "AlbumIdAlbum");
+                column: "IdMusicAlbum");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

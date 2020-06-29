@@ -18,7 +18,8 @@ namespace Musicians.Configurations
                 .IsRequired();
 
             builder.HasOne(album => album.MusicLabel)
-                .WithMany(label => label.Albums);
+                .WithMany(label => label.Albums)
+                .HasForeignKey("IdMusicLabel");
 
             builder.HasMany(album => album.Tracks)
                 .WithOne(track => track.Album);

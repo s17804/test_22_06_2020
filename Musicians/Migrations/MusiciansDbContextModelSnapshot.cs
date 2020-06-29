@@ -31,7 +31,7 @@ namespace Musicians.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<int?>("MusicLabelIdMusicLabel")
+                    b.Property<int?>("IdMusicLabel")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PublishDate")
@@ -39,7 +39,7 @@ namespace Musicians.Migrations
 
                     b.HasKey("IdAlbum");
 
-                    b.HasIndex("MusicLabelIdMusicLabel");
+                    b.HasIndex("IdMusicLabel");
 
                     b.ToTable("Albums");
                 });
@@ -95,17 +95,17 @@ namespace Musicians.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("MusicianIdMusician")
+                    b.Property<int?>("IdMusician")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TrackIdTrack")
+                    b.Property<int?>("IdTrack")
                         .HasColumnType("int");
 
                     b.HasKey("IdMusicianTrack");
 
-                    b.HasIndex("MusicianIdMusician");
+                    b.HasIndex("IdMusician");
 
-                    b.HasIndex("TrackIdTrack");
+                    b.HasIndex("IdTrack");
 
                     b.ToTable("MusicianTracks");
                 });
@@ -117,11 +117,11 @@ namespace Musicians.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AlbumIdAlbum")
-                        .HasColumnType("int");
-
                     b.Property<float>("Duration")
                         .HasColumnType("real");
+
+                    b.Property<int?>("IdMusicAlbum")
+                        .HasColumnType("int");
 
                     b.Property<string>("TrackName")
                         .IsRequired()
@@ -130,7 +130,7 @@ namespace Musicians.Migrations
 
                     b.HasKey("IdTrack");
 
-                    b.HasIndex("AlbumIdAlbum");
+                    b.HasIndex("IdMusicAlbum");
 
                     b.ToTable("Tracks");
                 });
@@ -139,25 +139,25 @@ namespace Musicians.Migrations
                 {
                     b.HasOne("Musicians.Models.MusicLabel", "MusicLabel")
                         .WithMany("Albums")
-                        .HasForeignKey("MusicLabelIdMusicLabel");
+                        .HasForeignKey("IdMusicLabel");
                 });
 
             modelBuilder.Entity("Musicians.Models.MusicianTrack", b =>
                 {
                     b.HasOne("Musicians.Models.Musician", "Musician")
                         .WithMany("MusicianTracks")
-                        .HasForeignKey("MusicianIdMusician");
+                        .HasForeignKey("IdMusician");
 
                     b.HasOne("Musicians.Models.Track", "Track")
                         .WithMany("MusicianTracks")
-                        .HasForeignKey("TrackIdTrack");
+                        .HasForeignKey("IdTrack");
                 });
 
             modelBuilder.Entity("Musicians.Models.Track", b =>
                 {
                     b.HasOne("Musicians.Models.Album", "Album")
                         .WithMany("Tracks")
-                        .HasForeignKey("AlbumIdAlbum");
+                        .HasForeignKey("IdMusicAlbum");
                 });
 #pragma warning restore 612, 618
         }
